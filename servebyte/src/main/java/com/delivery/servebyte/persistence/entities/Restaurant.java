@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class RestaurantServiceProvider {
+public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,5 +25,5 @@ public class RestaurantServiceProvider {
     private String email;
     private String password;
     private String phoneNumber;
-    private Long cityId;
+    private Timestamp created_on;
 }

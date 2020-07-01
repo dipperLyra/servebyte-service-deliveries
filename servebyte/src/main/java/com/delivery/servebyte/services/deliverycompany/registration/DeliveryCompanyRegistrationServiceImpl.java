@@ -23,7 +23,6 @@ public class DeliveryCompanyRegistrationServiceImpl implements DeliveryCompanyRe
         deliveryCompany.setEmail(email);
         deliveryCompany.setPassword(password);
         deliveryCompany.setPhoneNumber(phoneNumber);
-        deliveryCompany.setChannels(channels);
         return deliveryCompanyRepository.save(deliveryCompany);
     }
 

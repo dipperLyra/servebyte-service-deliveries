@@ -8,7 +8,7 @@ import java.util.Map;
 @Service
 public class PasswordEncoderGenerator {
 
-    public String encode(Map<String, String> password) {
+    public String encode(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode((CharSequence) password);
     }

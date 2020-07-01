@@ -1,4 +1,4 @@
-package com.delivery.servebyte.persistence.entities;
+package com.delivery.servebyte.controllers;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +14,13 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DeliveryCompany {
+public class RestaurantLogistics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
-    private String logo;
-    private String email;
-    private String password;
-    private String phoneNumber;
+    private Long restaurantId;
+    private Long deliveryCompanyId;
     private Timestamp created_on;
 }
