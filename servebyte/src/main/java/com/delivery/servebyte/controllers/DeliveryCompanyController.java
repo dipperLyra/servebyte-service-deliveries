@@ -1,5 +1,6 @@
 package com.delivery.servebyte.controllers;
 
+import com.delivery.servebyte.controllers.data.delivery.DeliveryCompanyRequest;
 import com.delivery.servebyte.controllers.data.delivery.DeliveryCompanyResponse;
 import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping(path = "/api/v1")
+@RequestMapping(path = "/api/v1/delivery-company")
 public class DeliveryCompanyController {
 
     @Autowired
@@ -25,20 +26,31 @@ public class DeliveryCompanyController {
     @Autowired
     PasswordEncoderGenerator passwordEncoderGenerator;
 
-    @GetMapping(path = "/delivery-companies")
+    @GetMapping(path = "/")
     public List<DeliveryCompany> getDeliveryCompanies() {
         return deliveryCompanyRepository.findAll();
     }
 
-    @GetMapping(path = "/delivery-company/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<DeliveryCompany>> getDeliveryCompany(@PathVariable(value = "id") Long deliveryCompanyId) {
         Optional<DeliveryCompany> deliveryCompany = deliveryCompanyRepository.findById(deliveryCompanyId);
         return ResponseEntity.ok().body(deliveryCompany);
     }
 
-    @PostMapping(path = "/delivery-company")
+
+    @PostMapping(path = "/")
     @ResponseBody
-    DeliveryCompany newCompany(@RequestBody DeliveryCompany deliveryCompany) {
-        return deliveryCompanyRepository.save(deliveryCompany);
+    public ResponseEntity<String> newCompany(@RequestBody DeliveryCompanyRequest deliveryCompanyRequest) {
+        String hash = PasswordEncoderGenerator.encode(deliveryCompanyRequest.getPassword());
+
+        DeliveryCompany deliveryCompany = new DeliveryCompany();
+        deliveryCompany.setPhoneNumber(deliveryCompanyRequest.getPhoneNumber());
+        deliveryCompany.setEmail(deliveryCompanyRequest.getEmail());
+        deliveryCompany.setLogo(deliveryCompanyRequest.getLogo());
+        deliveryCompany.setName(deliveryCompanyRequest.getName());
+        deliveryCompany.setCreated_on(java.util.Calendar.getInstance().getTime());
+        deliveryCompany.setPassword(hash);
+        deliveryCompanyRepository.save(deliveryCompany);
+        return new ResponseEntity<>("Delivery company created", HttpStatus.OK);
     }
 }
