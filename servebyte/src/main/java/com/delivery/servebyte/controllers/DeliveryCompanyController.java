@@ -1,13 +1,9 @@
 package com.delivery.servebyte.controllers;
 
-import com.delivery.servebyte.dto.channelDTO.ChannelRequest;
 import com.delivery.servebyte.dto.deliveryDTO.DeliveryCompanyBaseRequest;
 import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
-import com.delivery.servebyte.persistence.entities.DeliveryChannels;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
-import com.delivery.servebyte.persistence.entities.DeliveryCompanyChannel;
 import com.delivery.servebyte.persistence.repositories.DeliveryChannelRepository;
-import com.delivery.servebyte.persistence.repositories.DeliveryCompanyChannelsRepository;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
 import com.delivery.servebyte.services.deliverycompany.registration.DeliveryCompanyRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
@@ -31,8 +26,6 @@ public class DeliveryCompanyController {
     PasswordEncoderGenerator passwordEncoderGenerator;
     @Autowired
     DeliveryChannelRepository deliveryChannelRepository;
-    @Autowired
-    DeliveryCompanyChannelsRepository deliveryCompanyChannelsRepository;
 
 
 
@@ -50,13 +43,12 @@ public class DeliveryCompanyController {
     @PostMapping(path = "/")
     @ResponseBody
     @Transactional
-    public ResponseEntity<String> newCompany(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
+    public ResponseEntity<String> newCompany1(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
 
         if (deliveryCompanyRegService.createDeliveryCompany(deliveryCompanyRequest)) {
             return new ResponseEntity<>("Delivery company created", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Delivery company not created", HttpStatus.BAD_REQUEST);
         }
-
     }
 }

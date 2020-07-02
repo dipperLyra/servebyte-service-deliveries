@@ -1,5 +1,6 @@
 package com.delivery.servebyte.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,5 +27,9 @@ public class DeliveryChannels {
 
     private Timestamp createdOn;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, targetEntity = DeliveryCompany.class)
+    @JoinColumn(name = "delivery_company_fk")
+    @JsonBackReference
+    private DeliveryCompany deliveryCompany;
 
 }

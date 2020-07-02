@@ -2,6 +2,7 @@ package com.delivery.servebyte.dto.deliveryDTO;
 
 import com.delivery.servebyte.dto.channelDTO.ChannelRequest;
 import com.delivery.servebyte.dto.deliveryDTO.request.DeliveryCompanyRequest;
+import com.delivery.servebyte.persistence.entities.DeliveryChannels;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,6 @@ public class DeliveryCompanyBaseRequest {
 
     // delivery channels
     //private Map<String, ChannelRequest> channels = new HashMap<>();
-    private List<ChannelRequest> channels;
+    private Set<DeliveryChannels> channels;
 
 }
