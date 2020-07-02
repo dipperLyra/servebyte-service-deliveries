@@ -5,26 +5,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class DeliveryChannels {
+public class DeliveryCompanyChannel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
+    @Column(nullable = false, updatable = false)
+    private Long deliveryCompanyId;
 
-    private BigDecimal price;
+    @Column(nullable = false, updatable = false)
+    private Long deliveryChannelId;
 
     private Timestamp createdOn;
 
-
+    private Boolean isActive;
 }

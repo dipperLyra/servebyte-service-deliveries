@@ -1,5 +1,7 @@
-package com.delivery.servebyte.controllers.data.delivery;
+package com.delivery.servebyte.controllers.dto.deliveryDTO;
 
+import com.delivery.servebyte.controllers.dto.channelDTO.ChannelRequest;
+import com.delivery.servebyte.controllers.dto.deliveryDTO.request.DeliveryCompanyRequest;
 import com.delivery.servebyte.persistence.entities.DeliveryChannels;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +12,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class DeliveryCompanyRequest {
+public class DeliveryCompanyBaseRequest {
     // core delivery company details
+    private DeliveryCompanyRequest deliveryCompanyRequest;
     private String companyName;
     private String logo;
     private String email;
@@ -19,7 +22,6 @@ public class DeliveryCompanyRequest {
     private String password;
 
     // delivery channels
-    private Set<DeliveryChannels> deliveryChannels = new HashSet<>();
-    private String channelName;
-    private BigDecimal price;
+    private Set<ChannelRequest> channels = new HashSet<>();
+
 }

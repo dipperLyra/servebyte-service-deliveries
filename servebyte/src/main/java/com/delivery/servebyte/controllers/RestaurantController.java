@@ -1,8 +1,5 @@
 package com.delivery.servebyte.controllers;
 
-import com.delivery.servebyte.controllers.data.restaurant.RestaurantRequest;
-import com.delivery.servebyte.controllers.data.restaurant.RestaurantResponse;
-import com.delivery.servebyte.persistence.entities.DeliveryCompany;
 import com.delivery.servebyte.persistence.entities.Meal;
 import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.repositories.MealRepository;
@@ -20,7 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 
 @RestController
 @RequestMapping(path = "/api/v1/restaurant")

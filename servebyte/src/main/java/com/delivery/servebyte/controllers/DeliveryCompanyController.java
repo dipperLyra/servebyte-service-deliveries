@@ -1,6 +1,6 @@
 package com.delivery.servebyte.controllers;
 
-import com.delivery.servebyte.controllers.data.delivery.DeliveryCompanyRequest;
+import com.delivery.servebyte.controllers.dto.deliveryDTO.DeliveryCompanyBaseRequest;
 import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
 import com.delivery.servebyte.persistence.entities.DeliveryChannels;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
@@ -8,14 +8,13 @@ import com.delivery.servebyte.persistence.entities.DeliveryCompanyChannel;
 import com.delivery.servebyte.persistence.repositories.DeliveryChannelRepository;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyChannelsRepository;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
-import com.delivery.servebyte.services.HibernateUtil;
 import com.delivery.servebyte.services.deliverycompany.registration.DeliveryCompanyRegistrationService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -48,7 +47,8 @@ public class DeliveryCompanyController {
 
     @PostMapping(path = "/")
     @ResponseBody
-    public ResponseEntity<String> newCompany(@RequestBody DeliveryCompanyRequest deliveryCompanyRequest) {
+    @Transactional
+    public ResponseEntity<String> newCompany(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
         String hash = PasswordEncoderGenerator.encode(deliveryCompanyRequest.getPassword());
 
         // core details
@@ -64,7 +64,7 @@ public class DeliveryCompanyController {
 
         // delivery channels
         DeliveryChannels deliveryChannels = new DeliveryChannels();
-        deliveryChannels.setName(deliveryCompanyRequest.getChannelName());
+        deliveryChannels.setName(deliveryCompanyRequest.getChannels().toString());
         deliveryChannels.setPrice(deliveryCompanyRequest.getPrice());
         deliveryChannels.setCreatedOn(new Timestamp(new Date().getTime()));
         deliveryChannels = deliveryChannelRepository.save(deliveryChannels);

@@ -1,4 +1,4 @@
-package com.delivery.servebyte.controllers.data.restaurant;
+package com.delivery.servebyte.controllers.dto.restaurantDTO;
 
 import com.delivery.servebyte.controllers.Cities;
 import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
@@ -6,8 +6,6 @@ import com.delivery.servebyte.persistence.entities.DeliveryCompany;
 import com.delivery.servebyte.persistence.entities.Meal;
 import com.delivery.servebyte.persistence.entities.Restaurant;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 //@Getter
