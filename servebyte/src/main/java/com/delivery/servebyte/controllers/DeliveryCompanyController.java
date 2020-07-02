@@ -1,6 +1,7 @@
 package com.delivery.servebyte.controllers;
 
-import com.delivery.servebyte.controllers.dto.deliveryDTO.DeliveryCompanyBaseRequest;
+import com.delivery.servebyte.dto.channelDTO.ChannelRequest;
+import com.delivery.servebyte.dto.deliveryDTO.DeliveryCompanyBaseRequest;
 import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
 import com.delivery.servebyte.persistence.entities.DeliveryChannels;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
@@ -34,6 +35,7 @@ public class DeliveryCompanyController {
     DeliveryCompanyChannelsRepository deliveryCompanyChannelsRepository;
 
 
+
     @GetMapping(path = "/")
     public List<DeliveryCompany> getDeliveryCompanies() {
         return deliveryCompanyRepository.findAll();
@@ -49,48 +51,12 @@ public class DeliveryCompanyController {
     @ResponseBody
     @Transactional
     public ResponseEntity<String> newCompany(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
-        String hash = PasswordEncoderGenerator.encode(deliveryCompanyRequest.getPassword());
 
-        // core details
-        DeliveryCompany deliveryCompany = new DeliveryCompany();
-        deliveryCompany.setPhoneNumber(deliveryCompanyRequest.getPhoneNumber());
-        deliveryCompany.setEmail(deliveryCompanyRequest.getEmail());
-        deliveryCompany.setLogo(deliveryCompanyRequest.getLogo());
-        deliveryCompany.setName(deliveryCompanyRequest.getCompanyName());
-        deliveryCompany.setCreatedOn(new Timestamp(new Date().getTime()));
-        deliveryCompany.setPassword(hash);
-        deliveryCompany = deliveryCompanyRepository.save(deliveryCompany);
-
-
-        // delivery channels
-        DeliveryChannels deliveryChannels = new DeliveryChannels();
-        deliveryChannels.setName(deliveryCompanyRequest.getChannels().toString());
-        deliveryChannels.setPrice(deliveryCompanyRequest.getPrice());
-        deliveryChannels.setCreatedOn(new Timestamp(new Date().getTime()));
-        deliveryChannels = deliveryChannelRepository.save(deliveryChannels);
-
-
-        Optional<DeliveryCompanyChannel> optionalDeliveryCompanyChannels
-                = deliveryCompanyChannelsRepository
-                .findByDeliveryChannelIdAndDeliveryCompanyId(deliveryChannels.getId(), deliveryCompany.getId());
-
-        if (optionalDeliveryCompanyChannels.isEmpty()) {
-            DeliveryCompanyChannel deliveryCompanyChannels = new DeliveryCompanyChannel();
-            deliveryCompanyChannels.setCreatedOn(new Timestamp(new Date().getTime()));
-            deliveryCompanyChannels.setDeliveryChannelId(deliveryChannels.getId());
-            deliveryCompanyChannels.setDeliveryCompanyId(deliveryCompany.getId());
-            deliveryCompanyChannels.setIsActive(Boolean.TRUE);
-
-            deliveryCompanyChannelsRepository.save(deliveryCompanyChannels);
+        if (deliveryCompanyRegService.createDeliveryCompany(deliveryCompanyRequest)) {
+            return new ResponseEntity<>("Delivery company created", HttpStatus.OK);
         } else {
-
-            DeliveryCompanyChannel deliveryCompanyChannels = optionalDeliveryCompanyChannels.get();
-            deliveryCompanyChannels.setIsActive(Boolean.TRUE);
-
-            deliveryCompanyChannelsRepository.save(deliveryCompanyChannels);
+            return new ResponseEntity<>("Delivery company not created", HttpStatus.BAD_REQUEST);
         }
 
-        deliveryChannelRepository.save(deliveryChannels);
-        return new ResponseEntity<>("Delivery company created", HttpStatus.OK);
     }
 }

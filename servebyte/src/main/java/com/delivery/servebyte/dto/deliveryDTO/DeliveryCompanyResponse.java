@@ -1,4 +1,4 @@
-package com.delivery.servebyte.controllers.dto.deliveryDTO;
+package com.delivery.servebyte.dto.deliveryDTO;
 
 import lombok.Builder;
 import lombok.Getter;

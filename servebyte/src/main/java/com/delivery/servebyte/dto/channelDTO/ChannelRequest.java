@@ -1,4 +1,4 @@
-package com.delivery.servebyte.controllers.dto.channelDTO;
+package com.delivery.servebyte.dto.channelDTO;
 
 import lombok.Getter;
 import lombok.Setter;

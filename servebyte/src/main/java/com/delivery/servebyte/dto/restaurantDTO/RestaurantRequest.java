@@ -1,4 +1,4 @@
-package com.delivery.servebyte.controllers.dto.restaurantDTO;
+package com.delivery.servebyte.dto.restaurantDTO;
 
 import com.delivery.servebyte.controllers.Cities;
 import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;

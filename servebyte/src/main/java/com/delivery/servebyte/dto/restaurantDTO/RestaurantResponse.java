@@ -1,4 +1,4 @@
-package com.delivery.servebyte.controllers.dto.restaurantDTO;
+package com.delivery.servebyte.dto.restaurantDTO;
 
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
 import com.delivery.servebyte.persistence.entities.Meal;
