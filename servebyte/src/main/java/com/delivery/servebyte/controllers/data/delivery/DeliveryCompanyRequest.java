@@ -1,17 +1,22 @@
 package com.delivery.servebyte.controllers.data.delivery;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 public class DeliveryCompanyRequest {
-
-    private String name;
+    // core delivery company details
+    private String companyName;
     private String logo;
     private String email;
     private String phoneNumber;
     private String password;
+
+    // delivery channels
+    private String channelName;
+//    private Long companyId;
+    private BigDecimal price;
 }

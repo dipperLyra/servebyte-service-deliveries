@@ -18,7 +18,8 @@ public class DeliveryChannels {
     private Long id;
 
     private String name;
-    @ManyToOne
-    private DeliveryCompany deliveryCompId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_company_id", nullable = false)
+    private DeliveryCompany deliveryCompany;
     private BigDecimal price;
 }
