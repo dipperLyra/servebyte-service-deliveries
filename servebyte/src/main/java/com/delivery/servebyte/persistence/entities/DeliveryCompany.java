@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,13 +20,10 @@ public class DeliveryCompany {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deliveryCompany")
-    private Set<DeliveryChannels> deliveryChannels;
-
     private String name;
     private String logo;
     private String email;
     private String password;
     private String phoneNumber;
-    private Date created_on;
+    private Timestamp createdOn;
 }
