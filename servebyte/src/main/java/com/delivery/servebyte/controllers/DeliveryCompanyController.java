@@ -48,8 +48,8 @@ public class DeliveryCompanyController {
 
         // core details
 
-        Session session =  HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+//        Session session =  HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
 
         DeliveryCompany deliveryCompany = new DeliveryCompany();
         deliveryCompany.setPhoneNumber(deliveryCompanyRequest.getPhoneNumber());
@@ -59,8 +59,8 @@ public class DeliveryCompanyController {
         deliveryCompany.setCreated_on(java.util.Calendar.getInstance().getTime());
         deliveryCompany.setPassword(hash);
 
-        session.save(deliveryCompany);
-        //deliveryCompanyRepository.save(deliveryCompany);
+        //session.save(deliveryCompany);
+        deliveryCompanyRepository.save(deliveryCompany);
 
         // delivery channels
         DeliveryChannels deliveryChannels = new DeliveryChannels();
@@ -70,10 +70,10 @@ public class DeliveryCompanyController {
         deliveryChannels.setDeliveryCompany(deliveryCompany);
         deliveryCompany.getDeliveryChannels().add(deliveryChannels);
 
-        session.save(deliveryChannels);
-
-        session.getTransaction().commit();
-        //deliveryChannelRepository.save(deliveryChannels);
+//        session.save(deliveryChannels);
+//
+//        session.getTransaction().commit();
+        deliveryChannelRepository.save(deliveryChannels);
         System.out.println("Done");
         return new ResponseEntity<>("Delivery company created", HttpStatus.OK);
     }
