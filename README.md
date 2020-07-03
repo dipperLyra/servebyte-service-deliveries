@@ -29,7 +29,9 @@ Aiding service delivery during the pandemic
 
 5. Return a specific restaurant: GET /api/v1/restaurant/{id}
 
-6. Create a restaurant: POST /api/v1/restaurant/ 
+6. Query restaurants for a meal: GET /api/v1/restaurant/meal?mealName=<French fries>
+
+7. Create a restaurant: POST /api/v1/restaurant/ 
 
    sample payload:
    ````
