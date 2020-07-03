@@ -2,7 +2,6 @@ package com.delivery.servebyte.controllers;
 
 import com.delivery.servebyte.dto.deliveryDTO.DeliveryCompanyBaseRequest;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
-import com.delivery.servebyte.persistence.repositories.DeliveryChannelRepository;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
 import com.delivery.servebyte.services.deliverycompany.registration.DeliveryCompanyRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,6 @@ public class DeliveryCompanyController {
     DeliveryCompanyRegistrationService deliveryCompanyRegService;
     @Autowired
     DeliveryCompanyRepository deliveryCompanyRepository;
-    @Autowired
-    DeliveryChannelRepository deliveryChannelRepository;
-
-
 
     @GetMapping(path = "/")
     public List<DeliveryCompany> getAllCompanies() {
@@ -33,15 +28,20 @@ public class DeliveryCompanyController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Optional<DeliveryCompany>> getDeliveryCompany(@PathVariable(value = "id") Long deliveryCompanyId) {
-        Optional<DeliveryCompany> deliveryCompany = deliveryCompanyRepository.findById(deliveryCompanyId);
+    public ResponseEntity<Optional<DeliveryCompany>> getDeliveryCompany(
+            @PathVariable(value = "id") Long deliveryCompanyId)
+    {
+        Optional<DeliveryCompany> deliveryCompany = deliveryCompanyRepository
+                .findById(deliveryCompanyId);
         return ResponseEntity.ok().body(deliveryCompany);
     }
 
     @PostMapping(path = "/")
     @ResponseBody
     @Transactional
-    public ResponseEntity<String> createNewCompany(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
+    public ResponseEntity<String> createNewCompany(
+            @RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest)
+    {
 
         if (deliveryCompanyRegService.createDeliveryCompany(deliveryCompanyRequest)) {
             return new ResponseEntity<>("Delivery company created", HttpStatus.OK);

@@ -16,6 +16,5 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    private Meal mealId;
+    private String photoUrl;
 }

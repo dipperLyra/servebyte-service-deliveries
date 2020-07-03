@@ -32,6 +32,4 @@ public class DeliveryCompany {
     @JsonManagedReference
     private Set<DeliveryChannels> deliveryChannels = new HashSet<>();
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-//    private Set<Restaurant> restaurants = new HashSet<>();
 }

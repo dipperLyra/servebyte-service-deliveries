@@ -1,12 +1,12 @@
 package com.delivery.servebyte.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -24,4 +24,5 @@ public class Meal {
     private String preparationTime;
     private String description;
     private String photo;
+
 }

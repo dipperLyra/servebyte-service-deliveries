@@ -21,9 +21,4 @@ public class DeliveryChannels {
 
     private BigDecimal price;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, targetEntity = DeliveryCompany.class)
-//    @JoinColumn(name = "delivery_company_fk")
-//    @JsonBackReference
-//    private DeliveryCompany deliveryCompany;
-
 }

@@ -2,11 +2,10 @@ package com.delivery.servebyte.services.restaurant;
 
 import com.delivery.servebyte.dto.restaurantDTO.RestaurantRequest;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
+import com.delivery.servebyte.persistence.entities.Meal;
 import com.delivery.servebyte.persistence.entities.Restaurant;
-import com.delivery.servebyte.persistence.entities.RestaurantDeliveryCompany;
-import com.delivery.servebyte.persistence.repositories.DeliveryChannelRepository;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
-import com.delivery.servebyte.persistence.repositories.RestaurantDeliveryCompanyRepository;
+import com.delivery.servebyte.persistence.repositories.MealRepository;
 import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +22,9 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Autowired
     RestaurantRepository restaurantRepository;
     @Autowired
-    DeliveryChannelRepository channelRepository;
-    @Autowired
     DeliveryCompanyRepository deliveryCompanyRepository;
     @Autowired
-    RestaurantDeliveryCompanyRepository restaurantDeliveryCompanyRepository;
+    MealRepository mealRepository;
 
     @Override
     public boolean createRestaurant(RestaurantRequest request) {
@@ -40,17 +37,21 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setName(request.getRestaurantName());
         restaurant.setPhoneNumber(request.getPhoneNumber());
         restaurant.setPassword(request.getPassword());
-
         restaurant.setCity(request.getCity());
         restaurant.setMeals(request.getMeals());
-
-        this.deliveryCompanySet(request, restaurant);
+        this.setDeliveryCompany(request, restaurant);
 
         restaurantRepository.save(restaurant);
         return true;
     }
 
-    public void deliveryCompanySet(RestaurantRequest request, Restaurant restaurant) {
+    @Override
+    public Optional<List<Meal>> findRestaurantsAndMeals(String meal) {
+        return mealRepository.findByNameContaining(meal);
+    }
+
+    @Override
+    public void setDeliveryCompany(RestaurantRequest request, Restaurant restaurant) {
 
         for (String deliveryCompanyName:request.getDeliveryCompany()) {
              Set<DeliveryCompany> deliveryCompany =

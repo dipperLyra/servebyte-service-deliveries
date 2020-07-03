@@ -17,9 +17,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    private Meal mealId;
-    @ManyToOne
-    private DeliveryCompany deliveryCompanyId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private Restaurant restaurant;
+
     private Timestamp created_on;
 }

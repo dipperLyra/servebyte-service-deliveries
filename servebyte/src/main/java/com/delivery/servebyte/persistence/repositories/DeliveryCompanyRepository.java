@@ -9,4 +9,5 @@ import java.util.Set;
 @Repository
 public interface DeliveryCompanyRepository extends JpaRepository<DeliveryCompany, Long> {
     Set<DeliveryCompany> findByName(String name);
+
 }
