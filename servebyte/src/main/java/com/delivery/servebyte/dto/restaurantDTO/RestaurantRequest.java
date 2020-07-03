@@ -1,32 +1,27 @@
 package com.delivery.servebyte.dto.restaurantDTO;
 
-import com.delivery.servebyte.controllers.Cities;
-import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
-import com.delivery.servebyte.persistence.entities.DeliveryCompany;
+import com.delivery.servebyte.dto.deliveryDTO.request.DeliveryCompanyRequest;
 import com.delivery.servebyte.persistence.entities.Meal;
 import com.delivery.servebyte.persistence.entities.Restaurant;
-import lombok.Builder;
-import lombok.ToString;
+import com.delivery.servebyte.persistence.entities.RestaurantCity;
+import lombok.Getter;
+import lombok.Setter;
 
-//@Getter
-//@Setter
-@Builder
-@ToString
-public class RestaurantRequest extends Restaurant {
+import java.util.List;
+import java.util.Set;
 
-    PasswordEncoderGenerator passwordEncoder;
+@Getter
+@Setter
+public class RestaurantRequest {
 
-    private String name;
+
+    private String restaurantName;
     private String logo;
     private String email;
     private String password;
     private String phoneNumber;
-    private Cities city;
-    private Meal meal;
-    private DeliveryCompany deliveryCompany;
 
-//    public RestaurantRequest(PasswordEncoderGenerator passwordEncoder, String password) {
-//        this.passwordEncoder = passwordEncoder;
-//        this.password = this.passwordEncoder.encode(password);
-//    }
+    private List<RestaurantCity> city;
+    private Set<Meal> meals;
+    private List<String> deliveryCompany;
 }

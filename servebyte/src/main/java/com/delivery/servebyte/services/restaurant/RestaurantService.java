@@ -1,17 +1,7 @@
 package com.delivery.servebyte.services.restaurant;
 
-import com.delivery.servebyte.persistence.entities.Restaurant;
-import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
-import org.springframework.stereotype.Service;
+import com.delivery.servebyte.dto.restaurantDTO.RestaurantRequest;
 
-@Service
-public class RestaurantService {
-
-    RestaurantRepository restaurantRepository;
-
-    public Restaurant newRestaurant(Restaurant restaurant)
-    {
-        return  restaurantRepository.save(restaurant);
-    }
+public interface RestaurantService {
+    boolean createRestaurant(RestaurantRequest request);
 }
-//Meals: photo, price, time to prepare the meal, description

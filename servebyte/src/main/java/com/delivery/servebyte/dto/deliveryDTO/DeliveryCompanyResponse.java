@@ -1,9 +1,12 @@
 package com.delivery.servebyte.dto.deliveryDTO;
 
+import com.delivery.servebyte.persistence.entities.DeliveryChannels;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,5 +17,7 @@ public class DeliveryCompanyResponse {
     private String logo;
     private String email;
     private String phoneNumber;
-    private String channels;
+
+    private Set<DeliveryChannels> channels;
+
 }

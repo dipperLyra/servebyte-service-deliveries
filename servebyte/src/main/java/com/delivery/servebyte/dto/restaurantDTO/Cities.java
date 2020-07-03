@@ -1,6 +1,7 @@
-package com.delivery.servebyte.controllers;
+package com.delivery.servebyte.dto.restaurantDTO;
 
 public enum Cities {
+
     ABUJA("Abuja"),
     INDIA("India"),
     LAGOS("Lagos"),

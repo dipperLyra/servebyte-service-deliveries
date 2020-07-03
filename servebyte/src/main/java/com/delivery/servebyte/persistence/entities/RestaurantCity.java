@@ -9,15 +9,13 @@ import java.sql.Timestamp;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class City {
+public class RestaurantCity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
-    @ManyToOne
-    private Restaurant restaurantId;
     private Timestamp created_on;
 
 }

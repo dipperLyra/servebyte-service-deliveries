@@ -7,10 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -25,11 +21,9 @@ public class DeliveryChannels {
 
     private BigDecimal price;
 
-    private Timestamp createdOn;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, targetEntity = DeliveryCompany.class)
-    @JoinColumn(name = "delivery_company_fk")
-    @JsonBackReference
-    private DeliveryCompany deliveryCompany;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, targetEntity = DeliveryCompany.class)
+//    @JoinColumn(name = "delivery_company_fk")
+//    @JsonBackReference
+//    private DeliveryCompany deliveryCompany;
 
 }

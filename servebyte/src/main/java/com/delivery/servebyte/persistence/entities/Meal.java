@@ -18,11 +18,10 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    private Restaurant restaurantId;
 
     private String name;
     private BigDecimal price;
     private String preparationTime;
     private String description;
+    private String photo;
 }

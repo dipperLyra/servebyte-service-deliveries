@@ -14,11 +14,13 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DeliveryCompany {
-
+public class RestaurantDeliveryCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    //@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    //private Set<DeliveryCompany> deliveryCompany;
 
     private String name;
     private String logo;
@@ -28,10 +30,9 @@ public class DeliveryCompany {
     private Timestamp createdOn;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "delivery_company_fk")
-    @JsonManagedReference
     private Set<DeliveryChannels> deliveryChannels = new HashSet<>();
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-//    private Set<Restaurant> restaurants = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "restaurant_fk")
+    private Restaurant restaurant;
 }

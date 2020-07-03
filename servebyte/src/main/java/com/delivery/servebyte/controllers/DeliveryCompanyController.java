@@ -1,7 +1,6 @@
 package com.delivery.servebyte.controllers;
 
 import com.delivery.servebyte.dto.deliveryDTO.DeliveryCompanyBaseRequest;
-import com.delivery.servebyte.controllers.passwordutils.PasswordEncoderGenerator;
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
 import com.delivery.servebyte.persistence.repositories.DeliveryChannelRepository;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
@@ -12,7 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/delivery-company")
@@ -23,14 +23,12 @@ public class DeliveryCompanyController {
     @Autowired
     DeliveryCompanyRepository deliveryCompanyRepository;
     @Autowired
-    PasswordEncoderGenerator passwordEncoderGenerator;
-    @Autowired
     DeliveryChannelRepository deliveryChannelRepository;
 
 
 
     @GetMapping(path = "/")
-    public List<DeliveryCompany> getDeliveryCompanies() {
+    public List<DeliveryCompany> getAllCompanies() {
         return deliveryCompanyRepository.findAll();
     }
 
@@ -43,7 +41,7 @@ public class DeliveryCompanyController {
     @PostMapping(path = "/")
     @ResponseBody
     @Transactional
-    public ResponseEntity<String> newCompany1(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
+    public ResponseEntity<String> createNewCompany(@RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest) {
 
         if (deliveryCompanyRegService.createDeliveryCompany(deliveryCompanyRequest)) {
             return new ResponseEntity<>("Delivery company created", HttpStatus.OK);

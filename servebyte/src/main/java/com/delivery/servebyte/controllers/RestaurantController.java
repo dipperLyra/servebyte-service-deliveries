@@ -1,11 +1,15 @@
 package com.delivery.servebyte.controllers;
 
+import com.delivery.servebyte.dto.restaurantDTO.RestaurantRequest;
 import com.delivery.servebyte.persistence.entities.Meal;
 import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.repositories.MealRepository;
 import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
+import com.delivery.servebyte.services.deliverycompany.registration.DeliveryCompanyRegistrationService;
 import com.delivery.servebyte.services.restaurant.RestaurantService;
+import com.delivery.servebyte.services.restaurant.RestaurantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,11 +27,14 @@ import java.util.Optional;
 public class RestaurantController {
 
     @Autowired
-    RestaurantService restaurantService;
+    RestaurantServiceImpl restaurantServiceImpl;
     @Autowired
     RestaurantRepository restaurantRepository;
     @Autowired
     MealRepository mealRepository;
+    @Autowired
+    RestaurantService restaurantService;
+
 
     private static String UPLOADED_FOLDER = "F://temp//";
 
@@ -46,9 +53,13 @@ public class RestaurantController {
 
     @PostMapping(path = "/")
     @ResponseBody
-    public Restaurant newRestaurant(@RequestBody Restaurant restaurant)
+    public ResponseEntity<String> newRestaurant(@RequestBody RestaurantRequest request)
     {
-        return  restaurantRepository.save(restaurant);
+        if (restaurantService.createRestaurant(request)) {
+            return new ResponseEntity<>("restaurant created", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("restaurant not created", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(path = "/meal")
