@@ -24,8 +24,6 @@ public class RestaurantRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
-    @Autowired
-    private RestaurantRepository restaurantRepository;
 
     @Test
     public void testFindByMealsContaining() {
@@ -42,7 +40,5 @@ public class RestaurantRepositoryTest {
         entityManager.persist(restaurant);
         entityManager.flush();
 
-        List<Meal> meal = new ArrayList<>();
-        restaurantRepository.findByNameIn(meal);
     }
 }
