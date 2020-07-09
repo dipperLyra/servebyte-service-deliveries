@@ -34,12 +34,8 @@ public class Restaurant {
     @JoinColumn(name = "city_fk")
     private List<RestaurantCity> city;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable
-    (
-            joinColumns = { @JoinColumn(name = "restaurant_id") },
-            inverseJoinColumns = { @JoinColumn(name = "meal_id") }
-    )
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "restaurant_fk")
     private Set<Meal> meals;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})

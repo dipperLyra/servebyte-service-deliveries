@@ -20,5 +20,4 @@ public class DeliveryChannels {
     private String name;
 
     private BigDecimal price;
-
 }
