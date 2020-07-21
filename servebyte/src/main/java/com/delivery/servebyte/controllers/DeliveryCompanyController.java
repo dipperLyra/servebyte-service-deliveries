@@ -1,9 +1,10 @@
 package com.delivery.servebyte.controllers;
 
-import com.delivery.servebyte.dto.deliveryDTO.DeliveryCompanyBaseRequest;
-import com.delivery.servebyte.persistence.entities.DeliveryCompany;
+import com.delivery.servebyte.dto.delivery_company.DeliveryCompanyRequest;
+import com.delivery.servebyte.dto.delivery_company.DeliveryCompanyResponse;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
 import com.delivery.servebyte.services.deliverycompany.registration.DeliveryCompanyRegistrationService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/delivery-company")
@@ -23,16 +23,16 @@ public class DeliveryCompanyController {
     DeliveryCompanyRepository deliveryCompanyRepository;
 
     @GetMapping(path = "/")
-    public List<DeliveryCompany> getAllCompanies() {
-        return deliveryCompanyRepository.findAll();
+    public List<DeliveryCompanyResponse> getAllCompanies() throws NotFoundException {
+        return deliveryCompanyRegService.getAllCompanies();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Optional<DeliveryCompany>> getDeliveryCompany(
+    public ResponseEntity<DeliveryCompanyResponse> getDeliveryCompany(
             @PathVariable(value = "id") Long deliveryCompanyId)
     {
-        Optional<DeliveryCompany> deliveryCompany = deliveryCompanyRepository
-                .findById(deliveryCompanyId);
+        DeliveryCompanyResponse deliveryCompany = deliveryCompanyRegService.getCompany(deliveryCompanyId);
+
         return ResponseEntity.ok().body(deliveryCompany);
     }
 
@@ -40,7 +40,7 @@ public class DeliveryCompanyController {
     @ResponseBody
     @Transactional
     public ResponseEntity<String> createNewCompany(
-            @RequestBody DeliveryCompanyBaseRequest deliveryCompanyRequest)
+            @RequestBody DeliveryCompanyRequest deliveryCompanyRequest)
     {
 
         if (deliveryCompanyRegService.createDeliveryCompany(deliveryCompanyRequest)) {
@@ -48,5 +48,13 @@ public class DeliveryCompanyController {
         } else {
             return new ResponseEntity<>("Delivery company not created", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @DeleteMapping(path = "/")
+    public ResponseEntity<String> removeDeliveryCompany(@RequestParam Long id)
+    {
+        if (deliveryCompanyRegService.deleteDeliveryCompany(id))
+            return new ResponseEntity<>("Delivery company deleted", HttpStatus.OK);
+        else return new ResponseEntity<>("Delivery company deleted", HttpStatus.BAD_REQUEST);
     }
 }

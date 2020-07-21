@@ -32,3 +32,6 @@ build/
 
 ## System files ##
 *.DS_Store
+
+## Application files ##
+*.properties

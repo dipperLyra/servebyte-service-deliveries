@@ -1,8 +1,6 @@
 package com.delivery.servebyte.dto.restaurantDTO;
 
-import com.delivery.servebyte.dto.deliveryDTO.request.DeliveryCompanyRequest;
 import com.delivery.servebyte.persistence.entities.Meal;
-import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.entities.RestaurantCity;
 import lombok.Getter;
 import lombok.Setter;

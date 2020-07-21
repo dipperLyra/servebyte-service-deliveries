@@ -1,13 +1,12 @@
 package com.delivery.servebyte.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -25,4 +24,10 @@ public class Meal {
     private String preparationTime;
     private String description;
     private String photo;
+
+    @ManyToOne
+    @JoinColumn(name = "RESTAURANT_FK")
+    @JsonBackReference
+    private Restaurant restaurant;
+
 }

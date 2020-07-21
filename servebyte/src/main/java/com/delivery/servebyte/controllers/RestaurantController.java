@@ -1,7 +1,8 @@
 package com.delivery.servebyte.controllers;
 
-import com.delivery.servebyte.dto.restaurantDTO.RestaurantRequest;
+import com.delivery.servebyte.dto.mealDTO.MealResponse;
 import com.delivery.servebyte.persistence.entities.Meal;
+import com.delivery.servebyte.dto.restaurantDTO.RestaurantRequest;
 import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.repositories.MealRepository;
 import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,11 +45,11 @@ public class RestaurantController {
     }
 
     @GetMapping(path = "/meal")
-    public ResponseEntity<Optional<List<Meal>>> findRestaurantsWithMeal(
+    public ResponseEntity<Collection<MealResponse>> findRestaurantsWithMeal(
             @RequestParam(required = false) String mealName
     ) {
         String isMealSet = !mealName.isEmpty() ? mealName : "";
-        Optional<List<Meal>> restaurants = restaurantService.findRestaurantsAndMeals(isMealSet);
+        Collection<MealResponse> restaurants = restaurantService.findRestaurantsAndMeals(isMealSet);
 
         return ResponseEntity.ok().body(restaurants);
     }
@@ -62,5 +64,6 @@ public class RestaurantController {
             return new ResponseEntity<>("restaurant not created", HttpStatus.BAD_REQUEST);
         }
     }
+
 
 }

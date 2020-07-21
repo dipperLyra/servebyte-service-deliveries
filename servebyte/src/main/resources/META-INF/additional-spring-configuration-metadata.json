@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "paystack.secret",
+      "type": "java.lang.String",
+      "description": "Holds the secret key for Paystack authorization."
+  }
+] }

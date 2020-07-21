@@ -20,4 +20,9 @@ public class DeliveryChannels {
     private String name;
 
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_company_fk")
+    @JsonBackReference
+    private DeliveryCompany deliveryCompany;
 }

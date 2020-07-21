@@ -1,6 +1,6 @@
 package com.delivery.servebyte.persistence.entities;
 
-import com.delivery.servebyte.dto.restaurantDTO.City;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -34,8 +33,9 @@ public class Restaurant {
     @JoinColumn(name = "city_fk")
     private List<RestaurantCity> city;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "restaurant_fk")
+    //@JoinColumn(name = "restaurant_fk")
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "restaurant")
     private Set<Meal> meals;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})

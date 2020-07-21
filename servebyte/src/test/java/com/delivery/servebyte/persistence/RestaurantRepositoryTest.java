@@ -1,10 +1,8 @@
 package com.delivery.servebyte.persistence;
 
 import com.delivery.servebyte.persistence.entities.DeliveryCompany;
-import com.delivery.servebyte.persistence.entities.Meal;
 import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.entities.RestaurantCity;
-import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
