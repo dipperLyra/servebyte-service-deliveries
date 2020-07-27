@@ -31,19 +31,19 @@ public class DeliveryCompanyRegistrationServiceImpl implements DeliveryCompanyRe
                 deliveryCompanyRequest.getPhoneNumber(),
                 new Timestamp(new Date().getTime())
         );
-        deliveryCompany.setDeliveryChannels(deliveryCompanyRequest.getChannels());
+        deliveryCompany.setDeliveryChannels(deliveryCompanyRequest.getDeliveryChannels());
 
         deliveryCompanyRepository.save(deliveryCompany);
         return true;
     }
 
     @Override
-    public List<DeliveryCompanyResponse> getAllCompanies() {
+    public List<DeliveryCompanyResponse> listDeliveryCompanies() {
         DeliveryCompanyResponse deliveryCompanyResponse = new DeliveryCompanyResponse();
         List<DeliveryCompanyResponse> responses = new ArrayList<>();
 
         List<DeliveryCompany> companies = deliveryCompanyRepository.findAll();
-        if (!companies.isEmpty()){
+        if (!companies.isEmpty()) {
             companies.forEach(company -> {
                 deliveryCompanyResponse.setName(company.getName());
                 deliveryCompanyResponse.setEmail(company.getEmail());

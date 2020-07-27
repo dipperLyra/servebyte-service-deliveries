@@ -1,6 +1,5 @@
 package com.delivery.servebyte.persistence.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +21,10 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String name;
     private String logo;
+    @Column(unique = true)
     private String email;
     private String password;
     private String phoneNumber;
@@ -33,12 +34,11 @@ public class Restaurant {
     @JoinColumn(name = "city_fk")
     private List<RestaurantCity> city;
 
-    //@JoinColumn(name = "restaurant_fk")
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "restaurant")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private Set<Meal> meals;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable
     (
             joinColumns = { @JoinColumn(name = "restaurant_id") },

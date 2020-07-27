@@ -1,13 +1,13 @@
 package com.delivery.servebyte.persistence.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class Meal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -25,9 +25,11 @@ public class Meal {
     private String description;
     private String photo;
 
-    @ManyToOne
-    @JoinColumn(name = "RESTAURANT_FK")
     @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "restaurant_fk")
     private Restaurant restaurant;
+
+    private Timestamp createdAt;
 
 }

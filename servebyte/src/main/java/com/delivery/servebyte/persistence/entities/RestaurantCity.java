@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class RestaurantCity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;

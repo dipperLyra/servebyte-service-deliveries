@@ -10,4 +10,10 @@ public class PasswordEncoderUtil {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
+
+    public static boolean decode(String hash, String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.matches(password, hash);
+    }
 }

@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Photo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String photoUrl;

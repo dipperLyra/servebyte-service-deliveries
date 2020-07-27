@@ -24,7 +24,7 @@ public class DeliveryCompanyController {
 
     @GetMapping(path = "/")
     public List<DeliveryCompanyResponse> getAllCompanies() throws NotFoundException {
-        return deliveryCompanyRegService.getAllCompanies();
+        return deliveryCompanyRegService.listDeliveryCompanies();
     }
 
     @GetMapping(path = "/{id}")

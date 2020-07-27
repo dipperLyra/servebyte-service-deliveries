@@ -1,6 +1,6 @@
 package com.delivery.servebyte.persistence.repositories;
 
-import com.delivery.servebyte.dto.mealDTO.MealResponse;
+import com.delivery.servebyte.projections.MealResponse;
 import com.delivery.servebyte.persistence.entities.Meal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +18,6 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
             nativeQuery = true
     )
     Collection<MealResponse> findByNameContaining(@Param("name") String name);
+
+    Collection<Meal> findByNameContains(String name);
 }

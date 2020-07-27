@@ -16,11 +16,13 @@ import java.util.Set;
 public class DeliveryCompany {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     @NonNull private String name;
     @NonNull private String logo;
+    @Column(unique = true)
     @NonNull private String email;
     @NonNull private String password;
     @NonNull private String phoneNumber;
