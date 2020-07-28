@@ -2,7 +2,7 @@ package com.delivery.servebyte.controllers;
 
 import com.delivery.servebyte.dto.transaction.request.TransactionRequest;
 import com.delivery.servebyte.dto.transaction.response.TransactionResponse;
-import com.delivery.servebyte.services.transaction.PaystackClientService;
+import com.delivery.servebyte.services.restaurant.restaurant_cashier.impl.PaystackClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
 
     @Autowired
-    PaystackClientService clientService;
-
+    PaystackClientServiceImpl clientService;
+/*
     @PostMapping(path = "/")
     @ResponseBody
     public ResponseEntity<TransactionResponse> newTransaction(@RequestBody TransactionRequest request)
@@ -32,5 +32,5 @@ public class TransactionController {
     @PostMapping(path = "/test")
     public void tester(@RequestBody TransactionResponse transactionResponse) {
         clientService.testEnv(transactionResponse);
-    }
+    }*/
 }

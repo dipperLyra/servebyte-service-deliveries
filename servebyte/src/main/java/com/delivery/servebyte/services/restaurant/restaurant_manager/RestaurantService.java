@@ -1,4 +1,4 @@
-package com.delivery.servebyte.services.restaurant;
+package com.delivery.servebyte.services.restaurant.restaurant_manager;
 
 import com.delivery.servebyte.dto.mealDTO.MealRequest;
 import com.delivery.servebyte.dto.mealDTO.MealRestaurantResponse;

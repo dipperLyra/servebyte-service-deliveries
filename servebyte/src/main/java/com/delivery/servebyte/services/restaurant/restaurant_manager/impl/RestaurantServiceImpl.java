@@ -1,4 +1,4 @@
-package com.delivery.servebyte.services.restaurant;
+package com.delivery.servebyte.services.restaurant.restaurant_manager.impl;
 
 import com.delivery.servebyte.PasswordEncoderUtil;
 import com.delivery.servebyte.dto.mealDTO.MealRequest;
@@ -12,6 +12,7 @@ import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.repositories.DeliveryCompanyRepository;
 import com.delivery.servebyte.persistence.repositories.MealRepository;
 import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
+import com.delivery.servebyte.services.restaurant.restaurant_manager.RestaurantService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Service
-public class RestaurantServiceImpl implements RestaurantService{
+public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     RestaurantRepository restaurantRepository;
