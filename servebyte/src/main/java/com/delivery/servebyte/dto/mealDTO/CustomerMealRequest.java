@@ -1,7 +1,10 @@
 package com.delivery.servebyte.dto.mealDTO;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -9,9 +12,22 @@ import lombok.*;
 @RequiredArgsConstructor(staticName = "construct")
 public class CustomerMealRequest {
 
-    @NonNull private Long mealId;
+    @NonNull
+    @JsonProperty("meal_id")
+    private Long mealId;
 
-    @NonNull private String email;
-    @NonNull private String deliveryLocation;
-    @NonNull private int mealQuantity;
+    @NonNull
+    private String email;
+
+    @NonNull
+    @JsonProperty("delivery_location")
+    private String deliveryLocation;
+
+    @NonNull
+    @JsonProperty("meal_quantity")
+    private int mealQuantity;
+
+    @NonNull
+    @JsonProperty("total_price")
+    private BigDecimal totalPrice;
 }

@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 public interface MealOrderingService {
 
     BigDecimal getTotalCost();
-    boolean restaurantAvailableInLocation(Long mealId, String location);
+    //boolean restaurantAvailableInLocation(Long mealId, String location);
     void setTotalCost(BigDecimal price, int mealQuantity);
-    ResponseEntity<TransactionResponse> payment(CustomerMealRequest request);
+    ResponseEntity<TransactionResponse> placeOrder(CustomerMealRequest request);
     void sendEmail();
 
 }

@@ -1,4 +1,4 @@
-package com.delivery.servebyte.services.restaurant.restaurant_cashier;
+package com.delivery.servebyte.services.restaurant.restaurant_cashier.paystack;
 
 import com.delivery.servebyte.dto.mealDTO.CustomerMealRequest;
 import com.delivery.servebyte.dto.transaction.request.TransactionRequest;

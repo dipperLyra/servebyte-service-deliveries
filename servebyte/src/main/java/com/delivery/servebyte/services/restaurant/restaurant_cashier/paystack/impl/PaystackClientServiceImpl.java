@@ -1,12 +1,10 @@
-package com.delivery.servebyte.services.restaurant.restaurant_cashier.impl;
+package com.delivery.servebyte.services.restaurant.restaurant_cashier.paystack.impl;
 
 import com.delivery.servebyte.dto.mealDTO.CustomerMealRequest;
-import com.delivery.servebyte.dto.transaction.request.TransactionRequest;
 import com.delivery.servebyte.dto.transaction.response.TransactionResponse;
-import com.delivery.servebyte.persistence.entities.Transaction;
 import com.delivery.servebyte.persistence.repositories.TransactionRepository;
 import com.delivery.servebyte.services.restaurant.meal_manager.meal_ordering.MealOrderingService;
-import com.delivery.servebyte.services.restaurant.restaurant_cashier.PaystackClientService;
+import com.delivery.servebyte.services.restaurant.restaurant_cashier.paystack.PaystackClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,21 +48,21 @@ public class PaystackClientServiceImpl implements PaystackClientService {
         return response;
     }
 
-    private Map<String, Object> setTransactionParams(CustomerMealRequest request) {
-        String[] channels = {"card", "bank"};
-        Map<String, Object> map = new HashMap<>();
-        map.put("email", request.getEmail());
-        map.put("amount", orderingService.getTotalCost());
-        map.put("channels", channels);
-
-        return map;
-    }
-
     private HttpHeaders setHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(Objects.requireNonNull(env.getProperty("paystack.secret")));
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
+    }
+
+    private Map<String, Object> setTransactionParams(CustomerMealRequest request) {
+        String[] channels = {"card", "bank"};
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", request.getEmail());
+        map.put("amount", orderingService.getTotalCost());
+        //map.put("channels", channels);
+
+        return map;
     }
 
 }

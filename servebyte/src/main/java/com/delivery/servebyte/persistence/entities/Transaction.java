@@ -29,6 +29,8 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private Restaurant restaurant;
 
+    private Long mealId;
+
     private Timestamp created_on;
 
     public Transaction (TransactionRequest request, TransactionResponse response) {

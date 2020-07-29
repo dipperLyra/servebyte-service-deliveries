@@ -1,14 +1,19 @@
 package com.delivery.servebyte.controllers;
 
+import com.delivery.servebyte.dto.mealDTO.CustomerMealRequest;
 import com.delivery.servebyte.dto.mealDTO.MealRequest;
 import com.delivery.servebyte.dto.mealDTO.MealRestaurantResponse;
 import com.delivery.servebyte.dto.restaurantDTO.RestaurantRequest;
 import com.delivery.servebyte.dto.restaurantDTO.RestaurantResponse;
+import com.delivery.servebyte.dto.transaction.response.TransactionResponse;
 import com.delivery.servebyte.persistence.entities.Restaurant;
-import com.delivery.servebyte.persistence.repositories.MealRepository;
 import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
+import com.delivery.servebyte.services.restaurant.meal_manager.meal_ordering.MealOrderingService;
+import com.delivery.servebyte.services.restaurant.restaurant_cashier.storage.SaveTransactionService;
 import com.delivery.servebyte.services.restaurant.restaurant_manager.RestaurantService;
 import com.delivery.servebyte.services.restaurant.restaurant_manager.impl.RestaurantServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +31,13 @@ public class RestaurantController {
     @Autowired
     RestaurantRepository restaurantRepository;
     @Autowired
-    MealRepository mealRepository;
-    @Autowired
     RestaurantService restaurantService;
+    @Autowired
+    MealOrderingService orderingService;
+    @Autowired
+    SaveTransactionService saveTransactionService;
 
+    Logger logger = LoggerFactory.getLogger(RestController.class);
 
     @GetMapping(path = "/")
     public List<Restaurant> getRestaurants() {
@@ -70,5 +78,20 @@ public class RestaurantController {
         return restaurantService.createMeal(request)
                 ? new ResponseEntity<>("meal created", HttpStatus.OK)
                 : new ResponseEntity<>("meal not created", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(path = "/buy")
+    @ResponseBody
+    public ResponseEntity<TransactionResponse> purchaseMeal(@RequestBody CustomerMealRequest request)
+    {
+        ResponseEntity<TransactionResponse> response = orderingService.placeOrder(request);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            saveTransactionService.save(response.getBody(), request);
+            return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(response.getBody(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 }
