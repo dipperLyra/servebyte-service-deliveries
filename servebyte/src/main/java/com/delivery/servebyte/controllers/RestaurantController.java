@@ -8,6 +8,7 @@ import com.delivery.servebyte.dto.restaurantDTO.RestaurantResponse;
 import com.delivery.servebyte.dto.transaction.response.TransactionResponse;
 import com.delivery.servebyte.persistence.entities.Restaurant;
 import com.delivery.servebyte.persistence.repositories.RestaurantRepository;
+import com.delivery.servebyte.services.mailpostman.MailManager;
 import com.delivery.servebyte.services.restaurant.meal_manager.meal_ordering.MealOrderingService;
 import com.delivery.servebyte.services.restaurant.restaurant_cashier.storage.SaveTransactionService;
 import com.delivery.servebyte.services.restaurant.restaurant_manager.RestaurantService;
@@ -36,6 +37,8 @@ public class RestaurantController {
     MealOrderingService orderingService;
     @Autowired
     SaveTransactionService saveTransactionService;
+    @Autowired
+    MailManager mailManager;
 
     Logger logger = LoggerFactory.getLogger(RestController.class);
 
@@ -85,13 +88,27 @@ public class RestaurantController {
     public ResponseEntity<TransactionResponse> purchaseMeal(@RequestBody CustomerMealRequest request)
     {
         ResponseEntity<TransactionResponse> response = orderingService.placeOrder(request);
+        String subject = "Payment for the meal purchased";
+        String text = "Your payment was successful and your order has been fulfilled";
 
         if (response.getStatusCode() == HttpStatus.OK) {
             saveTransactionService.save(response.getBody(), request);
+            mailManager.sendEmail(request.getEmail(), subject, text);
             return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(response.getBody(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(path = "/mail")
+    @ResponseBody
+    public String mailer() {
+        String subject = "Payment for the meal purchased";
+        String text = "Your payment was successful and your order has been fulfilled";
+        String email = "mkpadikizito@gmail.com";
+
+        mailManager.sendEmail(email, subject, text);
+        return "mail sent";
 
     }
 }
